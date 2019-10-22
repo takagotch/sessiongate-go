@@ -24,7 +24,25 @@ func TestInitializer(t *testing.T) {
   })
 }
 
-
+func TestStart(t *testing.T) {
+  t.Run("Should fail with negative TTL", func(t *testing.T) {
+    config := &Config{
+      SignKey: signKey,
+    }
+    
+    sesssiongate, err := NewSessiongate(config)
+    if err != nil {
+      t.Error(err)
+    }
+    
+    _, err = sessiongate.Start(-1)
+    if err == nil {
+      t.Error(errors.New("Negative TTL should produce an error"))
+    }
+  })
+  
+  
+}
 
 
 ```
